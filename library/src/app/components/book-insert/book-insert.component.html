@@ -1,0 +1,75 @@
+<mat-card>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form
+        [formGroup]="form"
+        (submit)="onSubmit()"
+        *ngIf="!isLoading"
+    >
+        <mat-form-field>
+            <input
+                id="title"
+                name="title"
+                formControlName="title"
+                type="text"
+                placeholder="The Man in the High Castle"
+                matInput
+            />
+        </mat-form-field>
+        <mat-error *ngIf="form.get('title').invalid">
+            Please, insert a valid title name
+        </mat-error>
+        <div>
+            <button
+                type="button"
+                mat-stroked-button
+                (click)="selectFile.click()"
+            >
+                Select an Image
+            </button>
+            <input
+                type="file"
+                #selectFile
+                (change)="onImageSelected($event)"
+            />
+        </div>
+        <div class="image-preview">
+            <img
+                *ngIf="previewImage && previewImage !== '' && form.get('image').valid"
+                [src]="previewImage"
+                [alt]="form.value.title"
+            />
+        </div>
+        <mat-form-field>
+            <input
+                id="author"
+                name="author"
+                formControlName="author"
+                type="text"
+                placeholder="Philip K Dick"
+                matInput
+            />
+        </mat-form-field>
+        <mat-error *ngIf="form.get('author').invalid">
+            Please, insert a valid author name
+        </mat-error>
+        <mat-form-field>
+            <input
+                id="pages"
+                name="pages"
+                formControlName="pages"
+                type="number"
+                placeholder="237"
+                matInput
+            />
+        </mat-form-field>
+        <mat-error *ngIf="form.get('pages').invalid">
+            Please, insert a valid page number
+        </mat-error>
+        <button
+            color="primary"
+            mat-raised-button
+        >
+            Save Book
+        </button>
+    </form>
+</mat-card>
